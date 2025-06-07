@@ -17,7 +17,8 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		System.out.println("fiterChain Bean created");
 		http.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/about", "/contact", "/auth/register").permitAll()
+				.requestMatchers("/about", "/contact", "/auth/register")
+				.permitAll()
 				.anyRequest().authenticated()
 		);
 		

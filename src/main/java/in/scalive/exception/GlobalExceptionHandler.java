@@ -16,13 +16,13 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(value = EmailNotFoundException.class)
-	public ResponseEntity<ErrorResponse> handleUsernameNotFoundException(EmailNotFoundException ex) {
+	public ResponseEntity<ErrorResponse> handleEmailNotFoundException(EmailNotFoundException ex) {
 		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.name(), ex.getMessage());
 		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(value = EmailAlreadyExistsException.class)
-	public ResponseEntity<ErrorResponse> handleUsernameAlreadyExistsException(EmailAlreadyExistsException ex) {
+	public ResponseEntity<ErrorResponse> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex) {
 		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.CONFLICT.name(), ex.getMessage());
 		return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
 	}
