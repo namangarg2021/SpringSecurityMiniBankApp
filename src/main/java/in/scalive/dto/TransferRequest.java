@@ -1,8 +1,6 @@
 package in.scalive.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransferRequest {
-	@NotNull
-	@Email
+	@Email(message = "Please provide a valid email")
+	@NotNull(message = "Email should not be null")
 	private String toEmail;
 	
-	@NotNull
-	@Min(value = 0)
+	@NotNull(message = "amount should not be null")
+	@Positive(message = "amount should be greater than zero")
 	private Double amount;
 }

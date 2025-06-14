@@ -62,8 +62,7 @@ public class BankController {
 	}
 	
 	@PostMapping("/transfer")
-	public ResponseEntity<Transaction> transfer(@RequestBody @Valid TransferRequest transferRequest) {
-		Transaction transaction = bserv.transfer(transferRequest);
-		return ResponseEntity.ok(transaction);
+	public ResponseEntity<String> transfer(@RequestBody @Valid TransferRequest transferRequest) {
+		return ResponseEntity.ok(bserv.transfer(transferRequest));
 	}
 }

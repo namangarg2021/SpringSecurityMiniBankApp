@@ -56,7 +56,7 @@ public class BankService {
 		String email = getLoggedInUserEmail();
 		Customer cust = custRepo.findByEmail(email).get();
 		if(cust.getBalance() < amt) {
-			throw new RuntimeException("Insifficient balance");
+			throw new InsufficientBalanceException("Insifficient balance");
 		}
 		cust.setBalance(cust.getBalance() - amt);
 		custRepo.save(cust);
@@ -82,7 +82,7 @@ public class BankService {
 	
 	@Transactional
 	@PreAuthorize("hasRole('USER')")
-	public Transaction transfer(TransferRequest transferRequest) {
+	public String transfer(TransferRequest transferRequest) {
 		Customer recipient = custRepo.findByEmail(transferRequest.getToEmail())
 				.orElseThrow(() -> new EmailNotFoundException("Email: "+transferRequest.getToEmail()+" not found. Please provide a valid email id for money transfer."));
 		String email = getLoggedInUserEmail();
@@ -100,6 +100,8 @@ public class BankService {
 		Transaction trans2 = new Transaction(recipient.getEmail(), transferRequest.getAmount(),
 				"TRANSFER_IN", LocalDateTime.now());
 		transRepo.save(trans2);
-		return transRepo.save(trans);
+		String response = "Amount: %s transferred from %s to %s"
+				.formatted(transferRequest.getAmount(), email, recipient.getEmail());
+		return response;
 	}
 }

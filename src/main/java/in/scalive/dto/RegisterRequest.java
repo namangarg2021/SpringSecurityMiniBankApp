@@ -1,9 +1,6 @@
 package in.scalive.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,14 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegisterRequest {
-	@Email
-	@NotNull
+	@Email(message = "Please provide a valid email")
+	@NotNull(message = "Email should not be null")
 	private String email;
-	@NotNull
-	@Size(min = 8, max = 2000)
+	@NotNull(message = "Password should not be null")
+	@Size(min = 8, max = 2000, message = "Password should be atleast 8 characters long")
 	private String pwd;
-	@NotNull
+	@NotNull(message = "role should not be null")
 	private String role;
-	@Min(value = 0)
+	@PositiveOrZero(message = "balance should be zero or greater")
 	private double balance;
 }
